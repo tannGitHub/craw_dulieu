@@ -15,7 +15,7 @@ namespace vnjpclub
         }
         private bool connection()
         {
-            string connetionString = "Data Source=D:\\c#\\vnjpclub\\db\\vnjpclub.db";
+            string connetionString = "Data Source=D:\\Craw\\vnjpclub.db";
             cnn = new SQLiteConnection(connetionString);
             try
             {

@@ -15,20 +15,23 @@ using vnjpclub.models;
 
 namespace vnjpclub
 {
-    public partial class Form1 : Form
+    public partial class frmCraw : Form
     {
         controller controller = new controller();
         List<minna> minnas = new List<minna>();
+        String commonPath = String.Empty;
+        String sach_mina_cu = "https://www.vnjpclub.com/minna-no-nihongo-1998/";
 
         string home_url = "https://www.vnjpclub.com";
         List<string> error = new List<string>();
-        public Form1()
+        public frmCraw()
         {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            commonPath = @"D:\Craw";
             refresh();
         }
 
@@ -45,17 +48,17 @@ namespace vnjpclub
         }
 
 
-        private void button9_Click(object sender, EventArgs e)
+        private void btnMinaCu_Click(object sender, EventArgs e)
         {
-            minna();
+            minnacu();
         }
-        private void minna()
+        private void minnacu()
         {
             IWebDriver driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             try
             {
-                driver.Navigate().GoToUrl("https://www.vnjpclub.com/minna-no-nihongo/");
+                driver.Navigate().GoToUrl(sach_mina_cu);
                 var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                 htmlDocument.LoadHtml(driver.PageSource);
                 var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("cat-items")).ToList();
@@ -67,15 +70,15 @@ namespace vnjpclub
                     var bai = tr.Descendants("a").FirstOrDefault().InnerHtml;
                     var url = home_url + tr.Descendants("a").FirstOrDefault().Attributes["href"].Value;
                     controller.insert_minna(bai.Trim(), url.Trim(),
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-tu-vung.html",
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-ngu-phap.html",
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-luyen-doc.html",
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-hoi-thoai.html",
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-luyen-nghe.html",
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-bai-tap.html",
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-han-tu.html",
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-kiem-tra.html",
-                    "https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-tham-khao.html"
+                    sach_mina_cu + "/bai-" + i.ToString() + "-tu-vung.html",
+                    sach_mina_cu + "/bai-" + i.ToString() + "-ngu-phap.html",
+                    sach_mina_cu + "/bai-" + i.ToString() + "-luyen-doc.html",
+                    sach_mina_cu + "/bai-" + i.ToString() + "-hoi-thoai.html",
+                    sach_mina_cu + "/bai-" + i.ToString() + "-luyen-nghe.html",
+                    sach_mina_cu + "/bai-" + i.ToString() + "-bai-tap.html",
+                    sach_mina_cu + "/bai-" + i.ToString() + "-han-tu.html",
+                    sach_mina_cu + "/bai-" + i.ToString() + "-kiem-tra.html",
+                    sach_mina_cu + "/bai-" + i.ToString() + "-tham-khao.html"
                     );
                 }
 
@@ -86,10 +89,10 @@ namespace vnjpclub
             {
                 writeLog("minna: error: " + e.ToString());
             }
-            System.IO.File.WriteAllLines(@"D:\c#\vnjpclub\Error_minna.txt", error);
+            System.IO.File.WriteAllLines(commonPath + @"\Error_minna.txt", error);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnTuVung_Click(object sender, EventArgs e)
         {
             foreach (var mn in minnas)
             {
@@ -129,7 +132,7 @@ namespace vnjpclub
                         phat_am = tds[3].InnerHtml != null ? tds[3].Descendants("audio").FirstOrDefault().Attributes["src"].Value : "";
                         if (phat_am != "")
                         {
-                            save_mp3(home_url + phat_am, @"D:\c#\vnjpclub\db\minna\tu_vung\mp3\" + mp3 + ".mp3");
+                            save_mp3(home_url + phat_am, commonPath + @"\db\minna\tu_vung\mp3\" + mp3 + ".mp3");
                         }
                         nghia = tds[4].InnerHtml;
                         controller.insert_tu_vung(minna_id, tu_vung, han_tu, am_han, mp3, nghia);
@@ -140,7 +143,7 @@ namespace vnjpclub
                         phat_am = tds[1].InnerHtml != null ? tds[1].Descendants("audio").FirstOrDefault().Attributes["src"].Value : "";
                         if (phat_am != "")
                         {
-                            save_mp3(home_url + phat_am, @"D:\c#\vnjpclub\db\minna\tu_vung\mp3\" + mp3 + ".mp3");
+                            save_mp3(home_url + phat_am, commonPath + @"\db\minna\tu_vung\mp3\" + mp3 + ".mp3");
                         }
                         nghia = tds[2].InnerHtml;
                         controller.insert_tu_vung(minna_id, tu_vung, han_tu, am_han, mp3, nghia);
@@ -162,41 +165,45 @@ namespace vnjpclub
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnNguPhap_Click(object sender, EventArgs e)
         {
             ngu_phap();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnLuyenDoc_Click(object sender, EventArgs e)
         {
             luyen_doc();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnHoiThoai_Click(object sender, EventArgs e)
         {
             hoi_thoai();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnLuyenNghe_Click(object sender, EventArgs e)
         {
             luyen_nghe();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void btnBaiTap_Click(object sender, EventArgs e)
         {
             bai_tap();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void btnHanTu_Click(object sender, EventArgs e)
         {
             han_tu();
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void btnKiemTra_Click(object sender, EventArgs e)
         {
-            tham_khao();
+            kiem_tra();
         }
 
+        private void kiem_tra()
+        {
+            throw new NotImplementedException();
+        }
 
         private void ngu_phap()
         {
@@ -205,7 +212,7 @@ namespace vnjpclub
             {
                 IWebDriver driver = new ChromeDriver();
                 driver.Manage().Window.Maximize();
-                driver.Navigate().GoToUrl("https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-ngu-phap.html");
+                driver.Navigate().GoToUrl(sach_mina_cu + "/bai-"  + i.ToString() + "-ngu-phap.html");
                 var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                 htmlDocument.LoadHtml(driver.PageSource);
                 var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("tab_container")).ToList();
@@ -217,7 +224,7 @@ namespace vnjpclub
                 driver.Close();
                 Thread.Sleep(5000);
             }
-            System.IO.File.WriteAllLines(@"D:\c#\vnjpclub\ngu_phap.txt", ls);
+            System.IO.File.WriteAllLines(commonPath + @"\ngu_phap.txt", ls);
 
         }
 
@@ -228,7 +235,7 @@ namespace vnjpclub
             {
                 IWebDriver driver = new ChromeDriver();
                 driver.Manage().Window.Maximize();
-                driver.Navigate().GoToUrl("https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-luyen-doc.html");
+                driver.Navigate().GoToUrl(sach_mina_cu + "/bai-" + i.ToString() + "-luyen-doc.html");
                 var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                 htmlDocument.LoadHtml(driver.PageSource);
                 var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("tab_container")).ToList();
@@ -240,7 +247,7 @@ namespace vnjpclub
                 driver.Close();
                 Thread.Sleep(5000);
             }
-            System.IO.File.WriteAllLines(@"D:\c#\vnjpclub\luyen_doc.txt", ls);
+            System.IO.File.WriteAllLines(commonPath + @"\luyen_doc.txt", ls);
         }
 
         private void hoi_thoai()
@@ -250,7 +257,7 @@ namespace vnjpclub
             {
                 IWebDriver driver = new ChromeDriver();
                 driver.Manage().Window.Maximize();
-                driver.Navigate().GoToUrl("https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-hoi-thoai.html");
+                driver.Navigate().GoToUrl(sach_mina_cu + "/bai-" + i.ToString() + "-hoi-thoai.html");
                 var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                 htmlDocument.LoadHtml(driver.PageSource);
                 var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("tab_container")).ToList();
@@ -262,7 +269,7 @@ namespace vnjpclub
                 driver.Close();
                 Thread.Sleep(5000);
             }
-            System.IO.File.WriteAllLines(@"D:\c#\vnjpclub\hoi_thoai.txt", ls);
+            System.IO.File.WriteAllLines(commonPath + @"\hoi_thoai.txt", ls);
         }
 
         private void luyen_nghe()
@@ -272,7 +279,7 @@ namespace vnjpclub
             {
                 IWebDriver driver = new ChromeDriver();
                 driver.Manage().Window.Maximize();
-                driver.Navigate().GoToUrl("https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-luyen-nghe.html");
+                driver.Navigate().GoToUrl(sach_mina_cu + "/bai-" + i.ToString() + "-luyen-nghe.html");
                 var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                 htmlDocument.LoadHtml(driver.PageSource);
                 var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("tab_container")).ToList();
@@ -284,7 +291,7 @@ namespace vnjpclub
                 driver.Close();
                 Thread.Sleep(5000);
             }
-            System.IO.File.WriteAllLines(@"D:\c#\vnjpclub\luyen_nghe.txt", ls);
+            System.IO.File.WriteAllLines(commonPath + @"\luyen_nghe.txt", ls);
         }
 
         private void bai_tap()
@@ -296,7 +303,7 @@ namespace vnjpclub
                 {
                     IWebDriver driver = new ChromeDriver();
                     driver.Manage().Window.Maximize();
-                    driver.Navigate().GoToUrl("https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-bai-tap.html");
+                    driver.Navigate().GoToUrl(sach_mina_cu + "/bai-" + i.ToString() + "-bai-tap.html");
                     var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                     htmlDocument.LoadHtml(driver.PageSource);
                     var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("tab_container")).ToList();
@@ -313,7 +320,7 @@ namespace vnjpclub
                     writeLog("bai_tap: i = " + i + ", error: " + e.ToString());
                 }
             }
-            System.IO.File.WriteAllLines(@"D:\c#\vnjpclub\bai_tap.txt", ls);
+            System.IO.File.WriteAllLines(commonPath + @"\bai_tap.txt", ls);
         }
 
         private void han_tu()
@@ -325,7 +332,7 @@ namespace vnjpclub
                 {
                     IWebDriver driver = new ChromeDriver();
                     driver.Manage().Window.Maximize();
-                    driver.Navigate().GoToUrl("https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-han-tu.html");
+                    driver.Navigate().GoToUrl(sach_mina_cu + "/bai-" + i.ToString() + "-han-tu.html");
                     var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                     htmlDocument.LoadHtml(driver.PageSource);
                     var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("id", "").Equals("khungchinhgiua")).ToList();
@@ -342,7 +349,7 @@ namespace vnjpclub
                     writeLog("han_tu: i = " + i + ", error: " + e.ToString());
                 }
             }
-            System.IO.File.WriteAllLines(@"D:\c#\vnjpclub\han_tu.txt", ls);
+            System.IO.File.WriteAllLines(commonPath + @"\han_tu.txt", ls);
         }
 
         private void tham_khao()
@@ -354,7 +361,7 @@ namespace vnjpclub
                 {
                     IWebDriver driver = new ChromeDriver();
                 driver.Manage().Window.Maximize();
-                driver.Navigate().GoToUrl("https://www.vnjpclub.com/minna-no-nihongo/bai-" + i.ToString() + "-tham-khao.html");
+                driver.Navigate().GoToUrl(sach_mina_cu + "/bai-" + i.ToString() + "-tham-khao.html");
                 var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                 htmlDocument.LoadHtml(driver.PageSource);
                 var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("id", "").Equals("khungchinhgiua")).ToList();
@@ -371,9 +378,12 @@ namespace vnjpclub
                     writeLog("tham_khao: i = " + i + ", error: " + e.ToString());
                 }
             }
-            System.IO.File.WriteAllLines(@"D:\c#\vnjpclub\tham_khao.txt", ls);
+            System.IO.File.WriteAllLines(commonPath + @"\tham_khao.txt", ls);
         }
 
-        
+        private void btnThamKhao_Click(object sender, EventArgs e)
+        {
+            tham_khao();
+        }
     }
 }
