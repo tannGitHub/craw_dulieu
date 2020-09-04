@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using vnjpclub.models;
+using vnjpclub.music_view;
 
 namespace vnjpclub
 {
@@ -38,7 +39,7 @@ namespace vnjpclub
         private void refresh()
         {
             minnas = controller.get_minnas();
-            dataGridView1.DataSource = minnas;
+            dataGridView2.DataSource = minnas;
         }
 
         private void writeLog(string err)
@@ -384,6 +385,12 @@ namespace vnjpclub
         private void btnThamKhao_Click(object sender, EventArgs e)
         {
             tham_khao();
+        }
+
+        private void btnMusicApp_Click(object sender, EventArgs e)
+        {
+            Music_App frm = new Music_App();
+            frm.ShowDialog();
         }
     }
 }

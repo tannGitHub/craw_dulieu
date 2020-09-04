@@ -37,18 +37,19 @@
             this.btnHanTu = new System.Windows.Forms.Button();
             this.btnKiemtra = new System.Windows.Forms.Button();
             this.btnMinaCu = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnThamKhao = new System.Windows.Forms.Button();
             this.btnMinaMoi = new System.Windows.Forms.Button();
             this.groupBoxSach = new System.Windows.Forms.GroupBox();
+            this.btnMusicApp = new System.Windows.Forms.Button();
             this.btnN2 = new System.Windows.Forms.Button();
             this.btnN3 = new System.Windows.Forms.Button();
             this.btnSoCap = new System.Windows.Forms.Button();
             this.groupNhom = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.groupBoxSach.SuspendLayout();
             this.groupNhom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnTuVung
@@ -141,21 +142,6 @@
             this.btnMinaCu.UseVisualStyleBackColor = true;
             this.btnMinaCu.Click += new System.EventHandler(this.btnMinaCu_Click);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 119);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1033, 342);
-            this.dataGridView1.TabIndex = 20;
-            // 
             // btnThamKhao
             // 
             this.btnThamKhao.Location = new System.Drawing.Point(660, 19);
@@ -177,6 +163,7 @@
             // 
             // groupBoxSach
             // 
+            this.groupBoxSach.Controls.Add(this.btnMusicApp);
             this.groupBoxSach.Controls.Add(this.btnN2);
             this.groupBoxSach.Controls.Add(this.btnN3);
             this.groupBoxSach.Controls.Add(this.btnSoCap);
@@ -185,10 +172,20 @@
             this.groupBoxSach.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBoxSach.Location = new System.Drawing.Point(0, 0);
             this.groupBoxSach.Name = "groupBoxSach";
-            this.groupBoxSach.Size = new System.Drawing.Size(1033, 56);
+            this.groupBoxSach.Size = new System.Drawing.Size(877, 56);
             this.groupBoxSach.TabIndex = 12;
             this.groupBoxSach.TabStop = false;
             this.groupBoxSach.Text = "Danh sách sách";
+            // 
+            // btnMusicApp
+            // 
+            this.btnMusicApp.Location = new System.Drawing.Point(796, 19);
+            this.btnMusicApp.Name = "btnMusicApp";
+            this.btnMusicApp.Size = new System.Drawing.Size(75, 23);
+            this.btnMusicApp.TabIndex = 15;
+            this.btnMusicApp.Text = "Music App";
+            this.btnMusicApp.UseVisualStyleBackColor = true;
+            this.btnMusicApp.Click += new System.EventHandler(this.btnMusicApp_Click);
             // 
             // btnN2
             // 
@@ -231,7 +228,7 @@
             this.groupNhom.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupNhom.Location = new System.Drawing.Point(0, 56);
             this.groupNhom.Name = "groupNhom";
-            this.groupNhom.Size = new System.Drawing.Size(1033, 57);
+            this.groupNhom.Size = new System.Drawing.Size(877, 57);
             this.groupNhom.TabIndex = 13;
             this.groupNhom.TabStop = false;
             this.groupNhom.Text = "Thể loại";
@@ -241,24 +238,41 @@
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressBar1.Location = new System.Drawing.Point(0, 467);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1033, 23);
+            this.progressBar1.Size = new System.Drawing.Size(877, 23);
             this.progressBar1.TabIndex = 14;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToResizeColumns = false;
+            this.dataGridView2.AllowUserToResizeRows = false;
+            this.dataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 113);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.RowHeadersWidth = 62;
+            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView2.Size = new System.Drawing.Size(877, 354);
+            this.dataGridView2.TabIndex = 21;
             // 
             // frmCraw
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1033, 490);
+            this.ClientSize = new System.Drawing.Size(877, 490);
+            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupNhom);
             this.Controls.Add(this.groupBoxSach);
-            this.Controls.Add(this.dataGridView1);
             this.Name = "frmCraw";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cào dữ liệu";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBoxSach.ResumeLayout(false);
             this.groupNhom.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -274,7 +288,6 @@
         private System.Windows.Forms.Button btnHanTu;
         private System.Windows.Forms.Button btnKiemtra;
         private System.Windows.Forms.Button btnMinaCu;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnThamKhao;
         private System.Windows.Forms.Button btnMinaMoi;
         private System.Windows.Forms.GroupBox groupBoxSach;
@@ -283,6 +296,8 @@
         private System.Windows.Forms.Button btnSoCap;
         private System.Windows.Forms.GroupBox groupNhom;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button btnMusicApp;
     }
 }
 
